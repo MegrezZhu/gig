@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "gignore": "index.js"
+    "gignore": "gignore.js"
   },
+  "repository": "https://github.com/MegrezZhu/gignore",
   "author": "Zhu Chu",
   "license": "ISC",
   "dependencies": {
