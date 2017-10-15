@@ -1,7 +1,7 @@
 {
-  "name": "gignore",
-  "version": "1.0.0",
-  "description": "Downloading .gitignore with one-line command",
+  "name": "ignore-gen",
+  "version": "1.1.0",
+  "description": "Generating .gitignore with one-line command",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,7 @@
   "bin": {
     "gig": "index.js"
   },
-  "repository": "https://github.com/MegrezZhu/gignore",
+  "repository": "https://github.com/MegrezZhu/gig",
   "author": "Zhu Chu",
   "license": "WTFPL",
   "dependencies": {
