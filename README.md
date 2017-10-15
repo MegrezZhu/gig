@@ -12,7 +12,7 @@ npm i -g ignore-gen
 * or
 
 ```bash
-git clone git@github.com:MegrezZhu/gig.git & cd gig
+git clone https://github.com/MegrezZhu/gig.git && cd gig
 npm i .
 ```
 
