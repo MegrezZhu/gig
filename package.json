@@ -7,17 +7,21 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "gignore": "gignore.js"
+    "gig": "index.js"
   },
   "repository": "https://github.com/MegrezZhu/gignore",
   "author": "Zhu Chu",
-  "license": "ISC",
+  "license": "WTFPL",
   "dependencies": {
     "axios": "^0.16.2",
     "commander": "^2.11.0",
     "fs-extra": "^4.0.2",
     "http-proxy-agent": "^2.0.0",
-    "https-proxy-agent": "^2.1.0"
+    "https-proxy-agent": "^2.1.0",
+    "lodash": "^4.17.4",
+    "shelljs": "^0.7.8",
+    "table": "^4.0.2",
+    "unzip": "^0.1.11"
   },
   "devDependencies": {
     "eslint": "^4.8.0",
