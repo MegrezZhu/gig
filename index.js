@@ -26,6 +26,12 @@ program
   .description('generate .gitignore with specified template')
   .action(require('./lib/generate'));
 
+program
+  .command('c')
+  .alias('clear')
+  .description('clear cached templates')
+  .action(require('./lib/clear'));
+
 program.parse(process.argv);
 
 if (!process.argv.slice(2).length) {

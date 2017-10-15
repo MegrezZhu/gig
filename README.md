@@ -7,32 +7,41 @@ git clone git@github.com:MegrezZhu/gignore.git & cd gignore
 npm i .
 ```
 
-## Use
+## Usage
+
+### Setup
+
+templates fetching **required before generating**:
+
+```bash
+gig u
+```
+
+Or using proxy:
+
+```bash
+gig u -p http://localhost:1080
+```
+
+### Basic Use
+
+* create a `.gitignore` file at cwd: `gig g <template>`, e.g: `gig g node`
+* output to stdout: `gig g node -s`
+
+> useful with piping: `gig g node -s > a.txt`
+
+### More
+
+see `gig -h` or `gig <command> -h`
 
 ```
-Usage: gignore [options] [command]
+Usage: gig [options] [command]
 Options:
   -V, --version  output the version number
   -h, --help     output usage information
 Commands:
-  l [options]             list all .gitignore template names
-  d [options] <template>  download specific .gitignore template
+  u|update [options]          fetch & update cached templates
+  l|list                      list all available .gitignore template
+  g|gen [options] <template>  generate .gitignore with specified template
+  c|clear                     clear cached templates
 ```
-### download a .gitignore file
-
-```bash
-gignore d Node
-```
-
-### list all templates
-
-```bash
-gignore l
-```
-
-### proxy
-
-```bash
-gignore d Node -p http://localhost:1080
-```
-
