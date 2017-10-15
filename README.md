@@ -2,6 +2,15 @@
 A CLI tool that simply generate specific .gitignore template downloaded from [gitignore list](https://github.com/github/gitignore)
 
 ## Install
+
+* using NPM
+
+```bash
+npm i -g ignore-gen
+```
+
+* or
+
 ```bash
 git clone git@github.com:MegrezZhu/gig.git & cd gig
 npm i .
