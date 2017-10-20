@@ -38,7 +38,7 @@ program
   .option('-o, --output <path>', 'output path, default to current cwd directory name')
   .option('-w, --overwrite', 'overwrite existing file at output path')
   .option('-t, --type <type>', 'zip or tar, default to [zip]')
-  .description('pack the whole project')
+  .description('pack the whole project, repecting .gitignore rules')
   .action(require('./command/pack'));
 
 program.parse(process.argv);
