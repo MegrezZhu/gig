@@ -50,7 +50,7 @@ gig u -p http://localhost:1080
 
 ### Packaging project
 
-> Wanna send a cleaned & packaged project to collaborators or your tutor?
+> Wanna send a cleaned & packaged project to collaborators or tutors?
 
 #### Just pack it
 
@@ -60,7 +60,7 @@ At the project root:
 gig p
 ```
 
-For detailed options, type `gig p -h`.
+For detailed options, type `gig p -h`
 
 ### More
 
