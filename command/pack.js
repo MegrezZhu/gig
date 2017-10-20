@@ -3,23 +3,31 @@ const ignore = require('ignore');
 const path = require('path');
 const fs = require('fs-extra');
 const archiver = require('archiver');
+const assert = require('assert');
 
 const CWD = process.cwd();
+const availableTypes = ['zip', 'tar'];
 
 module.exports = async options => {
+  const overwrite = !!options.overwrite;
+  const type = options.type || 'zip';
+  const dest = path.resolve(CWD, options.output || `${path.basename(CWD)}.${type}`);
+  assert(availableTypes.indexOf(type) !== -1, 'invalid type');
+  if (!overwrite) await checkOverwrite(dest);
+
   const ignoreRule = await getIgnoreRule();
   const files = await getFiles(CWD, ignoreRule.rules, ignoreRule.path);
+  await packZip(files, path.resolve(CWD, dest), {type});
 
-  console.log(files);
-
-  console.log(path.basename(CWD));
-  const dest = path.resolve(CWD, `${path.basename(CWD)}.zip`);
-  await packZip(files, path.resolve(CWD, dest));
-  console.log('done');
+  console.log(`--> ${dest}`);
 };
 
-async function packZip (files, dest) {
-  const archive = archiver('zip', {
+async function checkOverwrite (file) {
+  assert(!await fs.pathExists(file), `${file} already exists, packing aborted`);
+}
+
+async function packZip (files, dest, {type}) {
+  const archive = archiver(type, {
     zlib: {level: 9}
   });
   const destStream = fs.createWriteStream(dest);
