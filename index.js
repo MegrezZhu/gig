@@ -10,13 +10,13 @@ program
   .alias('update')
   .option('-p, --proxy <host>', 'using proxy')
   .description('fetch & update cached templates')
-  .action(require('./lib/update'));
+  .action(require('./command/update'));
 
 program
   .command('l')
   .alias('list')
   .description('list all available .gitignore template')
-  .action(require('./lib/list').handler);
+  .action(require('./command/list').handler);
 
 program
   .command('g <template>')
@@ -24,13 +24,19 @@ program
   .option('-s, --stdout', 'print to stdout instead of file')
   .option('-n, --noAuto', 'disable automatic template name completion')
   .description('generate .gitignore with specified template')
-  .action(require('./lib/generate'));
+  .action(require('./command/generate'));
 
 program
   .command('c')
   .alias('clear')
   .description('clear cached templates')
-  .action(require('./lib/clear'));
+  .action(require('./command/clear'));
+
+program
+  .command('p')
+  .alias('pack')
+  .description('pack the whole project')
+  .action(require('./command/pack'));
 
 program.parse(process.argv);
 

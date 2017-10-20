@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra');
 const {getTemplates} = require('./list');
-const {templatePath} = require('./constants');
+const {templatePath} = require('../lib/constants');
 
 module.exports = async (template, options) => {
   const {noAuto, stdout} = options;

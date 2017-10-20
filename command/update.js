@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs-extra');
 const util = require('util');
 const {mv, rm} = require('shelljs');
-const {workPath, templatePath, unzipPath, zipPath} = require('./constants');
+const {workPath, templatePath, unzipPath, zipPath} = require('../lib/constants');
 
 const ensureDir = util.promisify(fs.ensureDir);
 

@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const util = require('util');
-const {templatePath} = require('./constants');
+const {templatePath} = require('../lib/constants');
 const {table} = require('table');
 const _ = require('lodash');
 
