@@ -26,7 +26,7 @@ module.exports = async (options) => {
 };
 
 async function download (options) {
-  const ax = require('./axios')(options);
+  const ax = require('../lib/axios')(options);
   const res = await ax.get('https://github.com/github/gitignore/archive/master.zip', {
     responseType: 'stream'
   });
