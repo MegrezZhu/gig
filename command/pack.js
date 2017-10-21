@@ -10,6 +10,7 @@ const availableTypes = ['zip', 'tar'];
 
 module.exports = async options => {
   const overwrite = !!options.overwrite;
+  const show = !!options.show;
   const type = options.type || 'zip';
   const dest = path.resolve(CWD, options.output || `${path.basename(CWD)}.${type}`);
   assert(availableTypes.indexOf(type) !== -1, 'invalid type');
@@ -19,6 +20,11 @@ module.exports = async options => {
   const files = await getFiles(CWD, ignoreRule.rules, ignoreRule.path);
   await packZip(files, path.resolve(CWD, dest), {type});
 
+  if (show) {
+    files.forEach(p => {
+      console.log(`packed: ${path.relative(CWD, p)}`);
+    });
+  }
   console.log(`--> ${dest}`);
 };
 
