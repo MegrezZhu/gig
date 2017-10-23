@@ -25,7 +25,11 @@ module.exports = async (template, options) => {
 };
 
 function match (str, candidates, auto) {
-  if (auto) {
+  str = str.toLowerCase();
+  for (const cand of candidates) {
+    if (cand.toLowerCase() === str) return [cand];
+  }
+  if (auto) { // auto: prefix matching
     return candidates
       .filter(cand => cand.toLowerCase().indexOf(str) === 0);
   } else {
