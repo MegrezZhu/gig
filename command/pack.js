@@ -1,9 +1,9 @@
 const walker = require('walker');
-const ignore = require('ignore');
 const path = require('path');
 const fs = require('fs-extra');
 const archiver = require('archiver');
 const assert = require('assert');
+const {exec} = require('shelljs');
 
 const CWD = process.cwd();
 const availableTypes = ['zip', 'tar'];
@@ -16,9 +16,10 @@ module.exports = async options => {
   assert(availableTypes.indexOf(type) !== -1, 'invalid type');
   if (!overwrite) await checkOverwrite(dest);
 
-  const ignoreRule = await getIgnoreRule();
-  const files = await getFiles(CWD, ignoreRule.rules, ignoreRule.path);
-  await packZip(files, path.resolve(CWD, dest), {type});
+  const files = await getFiles(CWD);
+  const filteredFiles = files.filter(getIgnoreRulesFilter(CWD))
+
+  await packZip(filteredFiles, path.resolve(CWD, dest), {type});
 
   if (show) {
     files.forEach(p => {
@@ -51,8 +52,7 @@ async function packZip (files, dest, {type}) {
   });
 }
 
-async function getFiles (root, ignoreRules, ignoreRulesRoot) {
-  const ig = ignore().add([...ignoreRules, '.git']);
+async function getFiles (root) {
   const res = [];
   return new Promise(resolve => {
     walker(root)
@@ -60,42 +60,27 @@ async function getFiles (root, ignoreRules, ignoreRulesRoot) {
         res.push(entry);
       })
       .on('end', () => {
-        const filter = ig.createFilter();
         resolve(
-          res.filter(p => filter(path.relative(ignoreRulesRoot, p)))
+          res.map(p => path.relative(root, p).replace(/\\/g, '/'))
         );
       });
   });
 }
 
-async function getIgnoreRule (filename = '.gitignore') {
-  let _path = CWD;
-  while (true) {
-    const toTest = path.join(_path, filename);
-    if (await fs.pathExists(toTest)) {
-      const data = await fs.readFile(toTest, {
-        encoding: 'utf-8'
-      });
-      return {
-        path: _path,
-        rules: processIgnoreFile(data)
-      };
-    }
-    if (isRoot(_path)) break;
-    _path = path.join(_path, '..');
+function getIgnoreRulesFilter (root) {
+  const option = { silent: true, cwd: root, async: false };
+  let mock = false;
+
+  const status = exec('git status', option);
+  if (status.code !== 0) {
+    if (status.stderr.match(/Not a git repository/)) mock = true;
+    else throw new Error(status.stderr);
   }
-  return {
-    path: '/',
-    rules: []
-  };
-}
 
-function processIgnoreFile (data, root) {
-  return data.split(/\r?\n/)
-    .filter(s => !!s)
-    .filter(s => !s.match(/^\W*#/));
-}
+  if (mock) exec('git init', option);
+  const res = exec('git ls-files -oi --exclude-standard', option);
+  if (mock) exec('rm -rf .git', option);
 
-function isRoot (_path) {
-  return path.join(_path, '..') === _path;
+  const set = new Set(res.split('\n'));
+  return p => !set.has(p) && !p.startsWith('.git/');
 }
