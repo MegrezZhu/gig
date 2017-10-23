@@ -17,7 +17,7 @@ module.exports = async options => {
   if (!overwrite) await checkOverwrite(dest);
 
   const files = await getFiles(CWD);
-  const filteredFiles = files.filter(getIgnoreRulesFilter(CWD))
+  const filteredFiles = files.filter(getIgnoreRulesFilter(CWD));
 
   await packZip(filteredFiles, path.resolve(CWD, dest), {type});
 

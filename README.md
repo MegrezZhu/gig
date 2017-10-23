@@ -6,6 +6,10 @@ Useful repository managing CLI tool for packaging repo & generating .gitignore f
 1. Generating `.gitignore` file from pre-downloaded templates from [gitignore list](https://github.com/github/gitignore).
 2. Packaging the whole project into one tar/zip, except those files that are ignored by the `.gitignore` rules.
 
+## Requirement
+
+* Git
+
 ## Install
 
 * using NPM
