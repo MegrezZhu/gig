@@ -1,6 +1,6 @@
 {
   "name": "gig-it",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Useful repository managing tool for packaging repo & generating .gitignore file",
   "keywords": [
     "git",
